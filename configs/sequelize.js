@@ -1,4 +1,4 @@
-const { Sequelize } = require('sequelize');
+const { Sequelize , Transaction} = require('sequelize');
 
 const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USERNAME, process.env.DB_PW, {
     host: process.env.DB_HOST,
@@ -10,6 +10,7 @@ const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USERNAME, pr
         idle: 10000
     },
     logging: false,
+    isolationLevel: Transaction.ISOLATION_LEVELS.READ_COMMITTED,
 });
 
 module.exports = sequelize;

@@ -1,4 +1,4 @@
-const {DataTypes} = require('sequelize');
+const {DataTypes, UUIDV4, UUIDV1} = require('sequelize');
 const sequelize = require('../configs/sequelize');
 
 const Board = sequelize.define('Board', {
@@ -21,8 +21,18 @@ const Board = sequelize.define('Board', {
         type: DataTypes.TEXT,
         defaultValue: null,
     },
+    board_collab: {
+        type: DataTypes.UUID,
+        defaultValue: UUIDV1(),
+    }
 }, {
     tableName: 'boards',
+    indexes: [
+        {
+          unique: true,
+          fields: ['board_collab'],
+        },
+    ]
 });
 
 module.exports = Board;
